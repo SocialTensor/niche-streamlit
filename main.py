@@ -65,7 +65,7 @@ with tabs[0]:
             "Pixtral_12b": "#373606"
         }
     else:
-        model_incentive_weight = {
+        MODEL_INCENTIVE_WEIGHT = {
             "GoJourney": 0.05,
             "SUPIR": 0.07,
             "FluxSchnell": 0.20,
@@ -175,9 +175,9 @@ with tabs[0]:
     # Plot Emission Distribution
     fig.add_trace(
         go.Pie(
-            values=list(model_incentive_weight.values()),
-            labels=list(model_incentive_weight.keys()),
-            marker=dict(colors=[_assign_color(model) for model in model_incentive_weight.keys()])
+            values=list(MODEL_INCENTIVE_WEIGHT.values()),
+            labels=list(MODEL_INCENTIVE_WEIGHT.keys()),
+            marker=dict(colors=[_assign_color(model) for model in MODEL_INCENTIVE_WEIGHT.keys()])
         ),
         row=1, col=2
     )
