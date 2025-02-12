@@ -28,7 +28,7 @@ tabs = st.tabs(["**Dashboard**", "**Playground**", "**Open Category**"])
 
 with tabs[0]:
     VALID_UIDS = ["202", "0", "181", "178", "28", "232", "78", "228", "242", "17", "133", "105", "7", "1", "244", "183", "58", "161"]
-    if datetime.utcnow() < datetime(2025, 2, 13, 16, 0, 0):
+    if datetime.datetime.utcnow() < datetime.datetime(2025, 2, 13, 16, 0, 0):
         model_incentive_weight = {
             'AnimeV3': 0.18, 
             'JuggernautXL': 0.15, 
@@ -79,17 +79,17 @@ with tabs[0]:
             "Active Miners": 0.03  # Added entry for remaining 3%
         }
         COLOR_MAP = {
-            "GoJourney": "#98df8a",
-            "SUPIR": "#ffbb78",
+            "GoJourney": "#17becf",
+            "SUPIR": "#ff7f0e", 
             "FluxSchnell": "#373606",
-            "Kolors": "#ffffcc",
+            "Kolors": "#e377c2",
             "OpenGeneral": "#98df8a",
             "OpenDigitalArt": "#ffbb78",
-            "OpenDigitalArtMinimalist": "#ffffcc",
-            "OpenTraditionalArtSketch": "#ffffcc",
-            "Pixtral_12b": "#373606",
-            "DeepSeek_R1_Distill_Llama_70B": "#98df8a",
-            "Active Miners": "#98df8a"
+            "OpenDigitalArtMinimalist": "#9467bd",
+            "OpenTraditionalArtSketch": "#2ca02c",
+            "Pixtral_12b": "#7f7f7f",
+            "DeepSeek_R1_Distill_Llama_70B": "#1f77b4",
+            "Active Miners": "#d62728"
         }
 
 
