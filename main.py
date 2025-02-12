@@ -28,41 +28,70 @@ tabs = st.tabs(["**Dashboard**", "**Playground**", "**Open Category**"])
 
 with tabs[0]:
     VALID_UIDS = ["202", "0", "181", "178", "28", "232", "78", "228", "242", "17", "133", "105", "7", "1", "244", "183", "58", "161"]
-    model_incentive_weight = {
-        'AnimeV3': 0.18, 
-        'JuggernautXL': 0.15, 
-        'RealitiesEdgeXL': 0.19, 
-        'Gemma7b': 0.03, 
-        'StickerMaker': 0.03, 
-        'FaceToMany': 0.00, 
-        'Kolors': 0.10, 
-        'FluxSchnell': 0.12, 
-        'DreamShaperXL': 0.00, 
-        'Llama3_70b': 0.05, 
-        'GoJourney': 0.04, 
-        'SUPIR': 0.08,
-        'OpenGeneral': 0.01,
-        'OpenDigitalArt': 0.01,
-        'Pixtral_12b': 0.01
-    }
-    COLOR_MAP = {
-        'AnimeV3': "#1f77b4", 
-        'JuggernautXL': "#ff7f0e", 
-        'RealitiesEdgeXL': "#2ca02c", 
-        'Gemma7b': "#d62728", 
-        'StickerMaker': "#9467bd", 
-        'FaceToMany': "#8c564b", 
-        'Kolors': "#e377c2", 
-        'FluxSchnell': "#bcbd22", 
-        'DreamShaperXL': "#7f7f7f", 
-        'Llama3_70b': "#f7b6d2", 
-        'GoJourney': "#17becf", 
-        'SUPIR': "#c5b0d5",
-        "": "#ffffcc",
-        "OpenGeneral": "#98df8a ",
-        "OpenDigitalArt": "#ffbb78",
-        "Pixtral_12b": "#373606"
-    }
+    if datetime.utcnow() < datetime(2025, 2, 13, 16, 0, 0):
+        model_incentive_weight = {
+            'AnimeV3': 0.18, 
+            'JuggernautXL': 0.15, 
+            'RealitiesEdgeXL': 0.19, 
+            'Gemma7b': 0.03, 
+            'StickerMaker': 0.03, 
+            'FaceToMany': 0.00, 
+            'Kolors': 0.10, 
+            'FluxSchnell': 0.12, 
+            'DreamShaperXL': 0.00, 
+            'Llama3_70b': 0.05, 
+            'GoJourney': 0.04, 
+            'SUPIR': 0.08,
+            'OpenGeneral': 0.01,
+            'OpenDigitalArt': 0.01,
+            'Pixtral_12b': 0.01
+        }
+        COLOR_MAP = {
+            'AnimeV3': "#1f77b4", 
+            'JuggernautXL': "#ff7f0e", 
+            'RealitiesEdgeXL': "#2ca02c", 
+            'Gemma7b': "#d62728", 
+            'StickerMaker': "#9467bd", 
+            'FaceToMany': "#8c564b", 
+            'Kolors': "#e377c2", 
+            'FluxSchnell': "#bcbd22", 
+            'DreamShaperXL': "#7f7f7f", 
+            'Llama3_70b': "#f7b6d2", 
+            'GoJourney': "#17becf", 
+            'SUPIR': "#c5b0d5",
+            "": "#ffffcc",
+            "OpenGeneral": "#98df8a ",
+            "OpenDigitalArt": "#ffbb78",
+            "Pixtral_12b": "#373606"
+        }
+    else:
+        model_incentive_weight = {
+            "GoJourney": 0.05,
+            "SUPIR": 0.07,
+            "FluxSchnell": 0.20,
+            "Kolors": 0.10,
+            "OpenGeneral": 0.10,
+            "OpenDigitalArt": 0.10,
+            "OpenDigitalArtMinimalist": 0.10,
+            "OpenTraditionalArtSketch": 0.10,
+            "Pixtral_12b": 0.05,
+            "DeepSeek_R1_Distill_Llama_70B": 0.10,
+            "Active Miners": 0.03  # Added entry for remaining 3%
+        }
+        COLOR_MAP = {
+            "GoJourney": "#98df8a",
+            "SUPIR": "#ffbb78",
+            "FluxSchnell": "#373606",
+            "Kolors": "#ffffcc",
+            "OpenGeneral": "#98df8a",
+            "OpenDigitalArt": "#ffbb78",
+            "OpenDigitalArtMinimalist": "#ffffcc",
+            "OpenTraditionalArtSketch": "#ffffcc",
+            "Pixtral_12b": "#373606",
+            "DeepSeek_R1_Distill_Llama_70B": "#98df8a",
+            "Active Miners": "#98df8a"
+        }
+
 
     st.markdown(
         """
