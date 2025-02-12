@@ -28,7 +28,6 @@ tabs = st.tabs(["**Dashboard**", "**Playground**", "**Open Category**"])
 
 with tabs[0]:
     VALID_UIDS = ["202", "0", "181", "178", "28", "232", "78", "228", "242", "17", "133", "105", "7", "1", "244", "183", "58", "161"]
-    MODEL_INCENTIVE_WEIGHT = None
     if datetime.datetime.utcnow() < datetime.datetime(2025, 2, 13, 16, 0, 0):
         model_incentive_weight = {
             'AnimeV3': 0.18, 
@@ -66,7 +65,7 @@ with tabs[0]:
             "Pixtral_12b": "#373606"
         }
     else:
-        MODEL_INCENTIVE_WEIGHT = {
+        model_incentive_weight = {
             "GoJourney": 0.05,
             "SUPIR": 0.07,
             "FluxSchnell": 0.20,
@@ -77,7 +76,6 @@ with tabs[0]:
             "OpenTraditionalArtSketch": 0.10,
             "Pixtral_12b": 0.05,
             "DeepSeek_R1_Distill_Llama_70B": 0.10,
-            "Active Miners": 0.03  # Added entry for remaining 3%
         }
         COLOR_MAP = {
             "GoJourney": "#17becf",
@@ -90,7 +88,6 @@ with tabs[0]:
             "OpenTraditionalArtSketch": "#2ca02c",
             "Pixtral_12b": "#7f7f7f",
             "DeepSeek_R1_Distill_Llama_70B": "#1f77b4",
-            "Active Miners": "#d62728"
         }
 
 
@@ -174,24 +171,14 @@ with tabs[0]:
         row=1, col=1
     )
     # Plot Emission Distribution
-    if MODEL_INCENTIVE_WEIGHT:
-        fig.add_trace(
-            go.Pie(
-                values=list(MODEL_INCENTIVE_WEIGHT.values()),
-            labels=list(MODEL_INCENTIVE_WEIGHT.keys()),
-            marker=dict(colors=[_assign_color(model) for model in MODEL_INCENTIVE_WEIGHT.keys()])
+    fig.add_trace(
+        go.Pie(
+            values=list(model_incentive_weight.values()),
+            labels=list(model_incentive_weight.keys()),
+            marker=dict(colors=[_assign_color(model) for model in model_incentive_weight.keys()])
         ),
-            row=1, col=2
-        )
-    else:
-        fig.add_trace(
-            go.Pie(
-                values=list(model_incentive_weight.values()),
-                labels=list(model_incentive_weight.keys()),
-                marker=dict(colors=[_assign_color(model) for model in model_incentive_weight.keys()])
-            ),
-            row=1, col=2
-        )
+        row=1, col=2
+    )
 
     fig.update_layout(
         title_text="Distribution",
