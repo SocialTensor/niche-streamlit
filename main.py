@@ -28,6 +28,7 @@ tabs = st.tabs(["**Dashboard**", "**Playground**", "**Open Category**"])
 
 with tabs[0]:
     VALID_UIDS = ["202", "0", "181", "178", "28", "232", "78", "228", "242", "17", "133", "105", "7", "1", "244", "183", "58", "161"]
+    MODEL_INCENTIVE_WEIGHT = None
     if datetime.datetime.utcnow() < datetime.datetime(2025, 2, 13, 16, 0, 0):
         model_incentive_weight = {
             'AnimeV3': 0.18, 
@@ -173,14 +174,24 @@ with tabs[0]:
         row=1, col=1
     )
     # Plot Emission Distribution
-    fig.add_trace(
-        go.Pie(
-            values=list(MODEL_INCENTIVE_WEIGHT.values()),
+    if MODEL_INCENTIVE_WEIGHT:
+        fig.add_trace(
+            go.Pie(
+                values=list(MODEL_INCENTIVE_WEIGHT.values()),
             labels=list(MODEL_INCENTIVE_WEIGHT.keys()),
             marker=dict(colors=[_assign_color(model) for model in MODEL_INCENTIVE_WEIGHT.keys()])
         ),
-        row=1, col=2
-    )
+            row=1, col=2
+        )
+    else:
+        fig.add_trace(
+            go.Pie(
+                values=list(model_incentive_weight.values()),
+                labels=list(model_incentive_weight.keys()),
+                marker=dict(colors=[_assign_color(model) for model in model_incentive_weight.keys()])
+            ),
+            row=1, col=2
+        )
 
     fig.update_layout(
         title_text="Distribution",
