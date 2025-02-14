@@ -290,7 +290,7 @@ with tabs[0]:
                 "Volume",
                 format="%f",
                 min_value=0,
-                max_value=1000,
+                max_value=256,
             ),
             "success_rate": st.column_config.ProgressColumn(
                 "Success Rate",
