@@ -234,7 +234,7 @@ with tabs[0]:
             success_rate = 1
             mean_process_time = 0
         model_name = v["model_name"]
-        if (model_name == "Recycle" or model_name == "") and int(k) in VALID_UIDS:
+        if int(k) in VALID_UIDS:
             model_name = "Validator"
         transformed_dict.append(
             {
