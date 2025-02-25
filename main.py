@@ -27,7 +27,7 @@ st.markdown(
 tabs = st.tabs(["**Dashboard**", "**Playground**", "**Open Category**"])
 
 with tabs[0]:
-    VALID_UIDS = ["202", "0", "181", "178", "28", "232", "78", "228", "242", "17", "133", "105", "7", "1", "244", "183", "58", "161"]
+    VALID_UIDS = [  1,   7,  28,  58, 133, 159, 181, 183, 188, 189, 202, 206, 227]
     if datetime.datetime.utcnow() < datetime.datetime(2025, 2, 27, 16, 0, 0):
         model_incentive_weight = {
             "GoJourney": 0.05,
@@ -125,7 +125,7 @@ with tabs[0]:
 
     all_validator_response = st.session_state.stats
     model_volumes, model_counts = get_total_volumes(all_validator_response)
-    all_validator_response = {k: v for k, v in all_validator_response.items() if str(k) in VALID_UIDS}
+    all_validator_response = {k: v for k, v in all_validator_response.items() if int(k) in VALID_UIDS}
     validator_uids = list(all_validator_response.keys())
     validator_uids = [int(uid) for uid in validator_uids]
     validator_uids = sorted(validator_uids)
@@ -234,7 +234,7 @@ with tabs[0]:
             success_rate = 1
             mean_process_time = 0
         model_name = v["model_name"]
-        if (model_name == "Recycle" or model_name == "") and str(k) in VALID_UIDS:
+        if (model_name == "Recycle" or model_name == "") and int(k) in VALID_UIDS:
             model_name = "Validator"
         transformed_dict.append(
             {
