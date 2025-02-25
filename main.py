@@ -28,43 +28,7 @@ tabs = st.tabs(["**Dashboard**", "**Playground**", "**Open Category**"])
 
 with tabs[0]:
     VALID_UIDS = ["202", "0", "181", "178", "28", "232", "78", "228", "242", "17", "133", "105", "7", "1", "244", "183", "58", "161"]
-    if datetime.datetime.utcnow() < datetime.datetime(2025, 2, 13, 16, 0, 0):
-        model_incentive_weight = {
-            'AnimeV3': 0.18, 
-            'JuggernautXL': 0.15, 
-            'RealitiesEdgeXL': 0.19, 
-            'Gemma7b': 0.03, 
-            'StickerMaker': 0.03, 
-            'FaceToMany': 0.00, 
-            'Kolors': 0.10, 
-            'FluxSchnell': 0.12, 
-            'DreamShaperXL': 0.00, 
-            'Llama3_70b': 0.05, 
-            'GoJourney': 0.04, 
-            'SUPIR': 0.08,
-            'OpenGeneral': 0.01,
-            'OpenDigitalArt': 0.01,
-            'Pixtral_12b': 0.01
-        }
-        COLOR_MAP = {
-            'AnimeV3': "#1f77b4", 
-            'JuggernautXL': "#ff7f0e", 
-            'RealitiesEdgeXL': "#2ca02c", 
-            'Gemma7b': "#d62728", 
-            'StickerMaker': "#9467bd", 
-            'FaceToMany': "#8c564b", 
-            'Kolors': "#e377c2", 
-            'FluxSchnell': "#bcbd22", 
-            'DreamShaperXL': "#7f7f7f", 
-            'Llama3_70b': "#f7b6d2", 
-            'GoJourney': "#17becf", 
-            'SUPIR': "#c5b0d5",
-            "": "#ffffcc",
-            "OpenGeneral": "#98df8a ",
-            "OpenDigitalArt": "#ffbb78",
-            "Pixtral_12b": "#373606"
-        }
-    else:
+    if datetime.datetime.utcnow() < datetime.datetime(2025, 2, 27, 16, 0, 0):
         model_incentive_weight = {
             "GoJourney": 0.05,
             "SUPIR": 0.07,
@@ -89,7 +53,29 @@ with tabs[0]:
             "Pixtral_12b": "#7f7f7f",
             "DeepSeek_R1_Distill_Llama_70B": "#1f77b4",
         }
-
+    else:
+        model_incentive_weight = {
+            'GoJourney': 0.04, 
+            'SUPIR': 0.05,
+            'FluxSchnell': 0.10, 
+            'Kolors': 0.05,
+            'OpenGeneral': 0.07,
+            'OpenDigitalArt': 0.07,
+            "OpenTraditionalArtSketch": 0.07,
+            "DeepSeek_R1_Distill_Llama_70B": 0.07,
+            "Recycle": 0.47,
+            "Stake_based": 0.01,
+        }
+        COLOR_MAP = {
+            "GoJourney": "#17becf",
+            "SUPIR": "#ff7f0e", 
+            "FluxSchnell": "#373606",
+            "Kolors": "#e377c2",
+            "OpenGeneral": "#98df8a",
+            "OpenDigitalArt": "#ffbb78",
+            "OpenDigitalArtMinimalist": "#9467bd",
+            "DeepSeek_R1_Distill_Llama_70B": "#1f77b4",
+        }
 
     st.markdown(
         """
@@ -247,10 +233,13 @@ with tabs[0]:
             process_time = []
             success_rate = 1
             mean_process_time = 0
+        model_name = v["model_name"]
+        if (model_name == "Recycle" or model_name == "") and str(k) in VALID_UIDS:
+            model_name = "Validator"
         transformed_dict.append(
             {
                 "uid": k,
-                "model_name": v["model_name"],
+                "model_name": model_name,
                 "mean_score": (
                     sum(v["scores"]) / 10
                 ),
@@ -261,6 +250,8 @@ with tabs[0]:
             }
         )
         
+        response["info"][k]["model_name"] = model_name
+        response["info"][k]["registration_date"] = v.get("registration_time", "")
         response["info"][k]["mean_process_time"] = mean_process_time
         response["info"][k]["success_rate"] = success_rate
 
@@ -278,13 +269,16 @@ with tabs[0]:
     st.markdown("**Total Information**", unsafe_allow_html=True)
     st.dataframe(pd_data,
         width=1200,
-        column_order = ("model_name", "scores", "total_volume", "success_rate", "mean_process_time", "reward_scale", "rate_limit", "device_info"),
+        column_order = ("model_name", "scores", "registration_date", "total_volume", "success_rate", "mean_process_time", "reward_scale", "rate_limit", "device_info"),
         column_config = {
             "scores": st.column_config.ListColumn(
                 "Scores",
             ),
             "model_name": st.column_config.TextColumn(
                 "Model"
+            ),
+            "registration_date": st.column_config.TextColumn(
+                "Registration Date"
             ),
             "total_volume": st.column_config.ProgressColumn(
                 "Volume",
