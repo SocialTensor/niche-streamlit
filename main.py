@@ -251,7 +251,7 @@ with tabs[0]:
         )
         
         response["info"][k]["model_name"] = model_name
-        response["info"][k]["registration_date"] = v.get("registration_time", "")
+        response["info"][k]["days_from_registration"] = v.get("registration_time", "")
         response["info"][k]["mean_process_time"] = mean_process_time
         response["info"][k]["success_rate"] = success_rate
 
@@ -269,7 +269,7 @@ with tabs[0]:
     st.markdown("**Total Information**", unsafe_allow_html=True)
     st.dataframe(pd_data,
         width=1200,
-        column_order = ("model_name", "scores", "registration_date", "total_volume", "success_rate", "mean_process_time", "reward_scale", "rate_limit", "device_info"),
+        column_order = ("model_name", "scores", "days_from_registration", "total_volume", "success_rate", "mean_process_time", "reward_scale", "rate_limit", "device_info"),
         column_config = {
             "scores": st.column_config.ListColumn(
                 "Scores",
@@ -277,8 +277,8 @@ with tabs[0]:
             "model_name": st.column_config.TextColumn(
                 "Model"
             ),
-            "registration_date": st.column_config.TextColumn(
-                "Registration Date"
+            "days_from_registration": st.column_config.NumberColumn(
+                "Days from registration"
             ),
             "total_volume": st.column_config.ProgressColumn(
                 "Volume",
